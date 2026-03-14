@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Teste API Texto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 650px;
+            margin: 40px auto;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            padding: 16px;
+            border: 1px solid #ddd;
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Inserir Texto / Salvar no Banco</h1>
+    <textarea id="texto" placeholder="Digite seu texto aqui..."></textarea><br />
+    <button id="btnSalvar">Salvar Texto</button>
+
+    <div id="resultado"></div>
+
+    <script>
+        const btnSalvar = document.getElementById('btnSalvar');
+        const resultado = document.getElementById('resultado');
+        const texto = document.getElementById('texto');
+
+        btnSalvar.addEventListener('click', async () => {
+            const conteudo = texto.value.trim();
+            if (!conteudo) {
+                resultado.innerHTML = '<span style="color:#a00;">Digite um texto antes de salvar.</span>';
+                return;
+            }
+
+            try {
+                const resp = await fetch('/api/textos', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ conteudo })
+                });
+
+                if (!resp.ok) {
+                    const msg = await resp.text();
+                    throw new Error(`Erro ${resp.status}: ${msg}`);
+                }
+
+                const dados = await resp.json();
+                resultado.innerHTML = `
+          <strong>Salvo com sucesso!</strong><br/>
+          id: ${dados.id} <br/>
+          conteudo: ${dados.conteudo}
+        `;
+
+                texto.value = '';
+            } catch (e) {
+                resultado.innerHTML = `<span style="color:#a00;">Erro ao salvar: ${e.message}</span>`;
+            }
+        });
+    </script>
+</body>
+
+</html>
