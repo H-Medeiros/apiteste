@@ -1,0 +1,71 @@
+/* layout responsivo, simples e bonito */
+:root {
+    --bg: #0f172a;
+    --card: #111827;
+    --primary: #38bdf8;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --radius: 12px;
+    --shadow: 0 10px 25px rgba(15, 23, 42, 0.35);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+html,
+body {
+    height: 100%;
+    background: radial-gradient(circle at top, #1e293b, #0f172a);
+    color: var(--text);
+    font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+}
+
+.container {
+    max-width: 540px;
+    margin: 3rem auto;
+    padding: 1.8rem;
+    background: var(--card);
+    border: 1px solid #334155;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+h1 {
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    color: var(--primary);
+    margin-bottom: 0.8rem;
+}
+
+p {
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+}
+
+code {
+    display: block;
+    white-space: pre-wrap;
+    word-break: break-word;
+    background: #0f172a;
+    padding: 0.85rem;
+    border-radius: 0.65rem;
+    margin-bottom: 1rem;
+    border: 1px solid #1e293b;
+}
+
+button {
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    color: #0f172a;
+    border: 0;
+    border-radius: 999px;
+    padding: 0.75rem 1.2rem;
+    cursor: pointer;
+    font-weight: 700;
+    transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.08);
+}
